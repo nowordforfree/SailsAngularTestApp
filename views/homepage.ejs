@@ -7,8 +7,6 @@
   }, 0);
 </script>
 
-<% block('localScripts', '<script src="js/homepage/index.js"></script>') %>
-
 <div class="default-page" ng-controller="HomeController as ctrl">
   <div class="header">
     <h1 class="container main-title"><%= __('Welcome') %></h1>
@@ -44,7 +42,7 @@
           <div class="modal-body">
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane fade in active" id="tab_login">
-                <form class="form-horizontal">
+                <form class="form-horizontal" name="ctrl.loginForm">
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label"><%= __('Email') %></label>
                     <div class="col-sm-9">
@@ -61,7 +59,7 @@
                 </form>
               </div>
               <div role="tabpanel" class="tab-pane fade" id="tab_register">
-                <form class="form-horizontal">
+                <form class="form-horizontal" name="ctrl.registerFsorm">
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label"><%= __('Email') %></label>
                     <div class="col-sm-9">
@@ -87,7 +85,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><%= __('Cancel') %></button>
-            <button type="button" class="btn btn-primary"><%= __('Sign In') %></button>
+            <button type="button" class="btn btn-primary" ng-click="submit($event)"><%= __('Sign In') %></button>
           </div>
         </div>
       </div>

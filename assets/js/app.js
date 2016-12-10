@@ -1,8 +1,6 @@
-'use strict';
-
 var appmodule =
     angular
-        .module('SailsNgApp', ['ngRoute'])
+        .module('SailsNgApp', ['ngRoute', 'SailsNgApp.controllers'])
         .config(['$routeProvider',
             function($routeProvider) {
                 $routeProvider.when('/', {
@@ -12,11 +10,6 @@ var appmodule =
                     redirectTo: '/',
                     caseInsentiveMatch: true
                 })
-            }
-        ])
-        .controller('HomeController', ['$scope', '$rootScope',
-            function($scope, $rootScope) {
-                console.log('Initialzed "HomeController" ctrl');
             }
         ]);
 
