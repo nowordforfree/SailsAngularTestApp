@@ -9,7 +9,7 @@
 
 <% block('localScripts', '<script src="js/homepage/index.js"></script>') %>
 
-<div class="default-page">
+<div class="default-page" ng-controller="HomeController as ctrl">
   <div class="header">
     <h1 class="container main-title"><%= __('Welcome') %></h1>
     <h3 class="container">Sign in to get access to all features</h3>

@@ -8,7 +8,7 @@
     <!--STYLES END-->
   </head>
 
-  <body>
+  <body ng-view>
     <%- body %>
 
     <!--TEMPLATES-->
@@ -16,10 +16,6 @@
     <!--TEMPLATES END-->
 
     <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
-    <script src="/js/dependencies/jquery.js"></script>
-    <script src="/js/dependencies/bootstrap.js"></script>
-    <script src="/js/dependencies/ejs.js"></script>
     <!--SCRIPTS END-->
     <%- blocks.localScripts %>
   </body>

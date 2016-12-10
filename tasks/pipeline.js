@@ -28,9 +28,11 @@ var jsFilesToInject = [
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
   // FIXME
-  // Load jQuery before Bootstrap and other libraries
+  // Setting libraries loading in correct order
   'js/dependencies/jquery.js',
   'js/dependencies/bootstrap.js',
+  'js/dependencies/angular.js',
+  'js/dependencies/angular-route.js',
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
 
@@ -55,7 +57,9 @@ var templateFilesToInject = [
 
 var jsNodeModulesToCopy = [
   'jquery',
-  'bootstrap/dist/js/bootstrap'
+  'bootstrap/dist/js/bootstrap',
+  'angular/angular',
+  'angular-route/angular-route'
 ];
 
 var fontsToCopy = './node_modules/bootstrap/dist/fonts';
