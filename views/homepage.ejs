@@ -1,0 +1,96 @@
+<!-- Default home page -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+  // surprise from example (out of the box)
+  setTimeout(function sunrise () {
+    document.getElementsByClassName('header')[0].style.backgroundColor = '#118798';
+  }, 0);
+</script>
+
+<% block('localScripts', '<script src="js/homepage/index.js"></script>') %>
+
+<div class="default-page">
+  <div class="header">
+    <h1 class="container main-title"><%= __('Welcome') %></h1>
+    <h3 class="container">Sign in to get access to all features</h3>
+    <i><%= __('A brand new app.') %></i>
+  </div>
+  <div class="main container-fluid clearfix">
+    <div class="container text-center">
+      <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#auth_modal"><%= __('Sign In') %></button>
+    </div>
+    <div class="modal fade" id="auth_modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title text-center"><%= __('Welcome') %></h4>
+            <br/>
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#tab_login" aria-controls="tab_login" role="tab" data-toggle="tab">
+                  <%= __('Have account') %>
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#tab_register" aria-controls="tab_register" role="tab" data-toggle="tab">
+                  <%= __('Register') %>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-body">
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="tab_login">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label"><%= __('Email') %></label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label"><%= __('Password') %></label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                  </div>
+                  <div class="alert-danger error-block"></div>
+                </form>
+              </div>
+              <div role="tabpanel" class="tab-pane fade" id="tab_register">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label"><%= __('Email') %></label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label"><%= __('Password') %></label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword" class="col-sm-3 control-label"><%= __('Confirm password') %></label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                  </div>
+                  <div class="alert-danger error-block"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= __('Cancel') %></button>
+            <button type="button" class="btn btn-primary"><%= __('Sign In') %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

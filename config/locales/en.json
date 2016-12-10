@@ -1,0 +1,14 @@
+{
+	"Welcome": "Welcome",
+	"A brand new app.": "A brand new app.",
+	"Sign In": "Sign In",
+	"Cancel": "Cancel",
+	"Email": "Email",
+	"Password": "Password",
+	"Confirm password": "Confirm Password",
+	"Have account": "Have account",
+	"Register": "Register",
+	"EmailMissing": "Email is missing, this is a required field",
+	"PasswordMissing": "Password missing, this is a required field",
+	"ConfirmPasswordMissing": "Confirm password is missing, this is a required field"
+}
