@@ -1,31 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="SailsNgApp">
   <head>
-    <title><%=typeof title == 'undefined' ? 'New Sails App' : title%></title>
+    <title>New Sails App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--STYLES-->
+    <base href="/">
     <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
-  </head>
-
-  <body ng-view>
-    <%- body %>
-
-    <!--TEMPLATES-->
-    <script type="text/javascript" src="/jst.js"></script>
-    <!--TEMPLATES END-->
-
-    <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/jquery.js"></script>
     <script src="/js/dependencies/bootstrap.js"></script>
     <script src="/js/dependencies/angular.js"></script>
     <script src="/js/dependencies/angular-route.js"></script>
-    <script src="/js/app/app.config.js"></script>
-    <script src="/js/app/app.js"></script>
     <script src="/js/app/pages/home/app.pages.home.js"></script>
     <script src="/js/app/pages/main/app.pages.main.js"></script>
-    <!--SCRIPTS END-->
-
+    <script src="/js/app/app.js"></script>
+  </head>
+  <body ng-view>
   </body>
 </html>

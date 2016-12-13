@@ -9,14 +9,16 @@ var appmodule =
     ])
     .config(['$routeProvider', '$locationProvider',
       function($routeProvider, $locationProvider) {
-          $routeProvider.when('/', {
-              template: '<page-home></page-home>',
-          }).when('/main', {
-              template: '<page-main></page-main>',
-          }).otherwise({
-              redirectTo: '/',
-              caseInsentiveMatch: true
-          });
+          $routeProvider
+            .when('/', {
+                template: '<page-home></page-home>',
+            })
+            .when('/main', {
+                template: '<page-main></page-main>',
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
 
           $locationProvider.html5Mode(true);
       }

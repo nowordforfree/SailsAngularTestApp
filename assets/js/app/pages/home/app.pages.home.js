@@ -96,6 +96,7 @@ angular
         $http(req).then(
           function success(response) {
             if (response.data.token) {
+              $('#auth_modal').modal('hide');
               window.localStorage
                     .setItem(
                       'user',
@@ -103,7 +104,7 @@ angular
                     );
 
               $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-              $location.path('/main').replace();
+              $location.path('main').replace();
             } else {
               var error = $('<div></div>');
               error
@@ -116,10 +117,25 @@ angular
             }
           },
           function error(response) {
+            var errorText;
+            if (response.data.error.invalidAttributes) {
+              var allErrors = [];
+              for (var field in response.data.error.invalidAttributes) {
+                response.data
+                        .error
+                        .invalidAttributes[field]
+                        .map(function (obj) {
+                          allErrors.push(obj.message);
+                        });
+              }
+              errorText = allErrors.join('\n');
+            } else {
+              errorText = response.data.error;
+            }
             var error = $('<div></div>');
             error
               .addClass('text-center')
-              .text(response.data.error);
+              .text(errorText);
             $form
               .find('.error-block')
               .append(error);

@@ -1,6 +1,59 @@
-<div class="container">
-  <h2>Hello</h2>
-  <hr>
-  <br>
-  <h4>Here will be somthing cool</h4>
+<style type="text/css">
+body { padding-top: 70px; }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav">
+        <li><img class="avatar" ng-src="{{user.avatar}}" /></li>
+        <li><span>{{user.firstname}} {{user.lastname}}</span></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="glyphicon glyphicon-cog"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Notifications settings</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Profile Settings</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="list-group">
+        <li class="list-group-item active">Chat 1</li>
+        <li class="list-group-item">Chat 2</li>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <div class="chat">
+
+      </div>
+      <div class="message">
+        <div class="col-sm-11">
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-sm-1">
+          <button type="submit" class="btn btn-primary" value="Send">
+            <i class="glyphicon glyphicon-send"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

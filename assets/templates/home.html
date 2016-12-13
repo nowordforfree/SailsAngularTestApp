@@ -26,7 +26,7 @@
             </button>
             <h4 class="modal-title text-center">Welcome</h4>
             <br/>
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
               <li role="presentation" class="active">
                 <a href="#tab_login" aria-controls="tab_login" role="tab"
                   data-toggle="tab" ng-click="$event.preventDefault();">
@@ -44,7 +44,7 @@
           <div class="modal-body">
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane fade in active" id="tab_login">
-                <form class="form-horizontal" name="ctrl.loginForm">
+                <form class="form-horizontal" name="ctrl.loginForm" ng-submit="submit($event)" novalidate>
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
@@ -58,10 +58,11 @@
                     </div>
                   </div>
                   <div class="alert-danger error-block"></div>
+                  <input type="submit" class="hidden">
                 </form>
               </div>
               <div role="tabpanel" class="tab-pane fade" id="tab_register">
-                <form class="form-horizontal" name="ctrl.registerFsorm">
+                <form class="form-horizontal" name="ctrl.registerFsorm" ng-submit="submit($event)" novalidate>
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
@@ -81,6 +82,7 @@
                     </div>
                   </div>
                   <div class="alert-danger error-block"></div>
+                  <input type="submit" class="hidden">
                 </form>
               </div>
             </div>

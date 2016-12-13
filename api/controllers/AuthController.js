@@ -63,7 +63,7 @@ module.exports = {
       password: password
     }).exec(function (err, user) {
       if (err) {
-        return res.json(err.status, {err: err});
+        return res.json(err.status, {error: err});
       }
 
       if (user) {

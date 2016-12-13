@@ -31,7 +31,7 @@ module.exports = {
       if (user) {
         res.json(200, {
           user: user,
-          token: AuthService.issueToken(user._id)
+          token: AuthService.issueToken(user.id)
         });
       }
     });

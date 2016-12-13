@@ -27,7 +27,13 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': 'tokenAuth',
-  AuthController: true // We don't need authorization here, allowing public access
+  AuthController: {
+    '*': true // We don't need authorization here, allowing public access
+  },
+  UserController: {
+    '*': 'tokenAuth',
+    'create': true
+  }
 
   /***************************************************************************
   *                                                                          *
