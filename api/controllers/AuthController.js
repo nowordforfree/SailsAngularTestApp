@@ -12,27 +12,27 @@ module.exports = {
   login: function (req, res) {
     var email = req.param('email');
     var password = req.param('password');
-    
+
     if (!email || !password) {
-      return res.json(401, {err: 'email and password required'});
+      return res.json(401, {error: 'Email and password required'});
     }
-    
+
     User.findOneByEmail(email, function(err, user) {
       if (!user) {
-        return res.json(401, {err: 'user with such email not found'});
+        return res.json(401, {error: 'User with such email not found'});
       }
-      
+
       User.comparePassword(password, user, function(err, valid) {
         if (err) {
-          return res.json(403, {err: 'forbidden'});
+          return res.json(403, {error: 'Forbidden'});
         }
-        
+
         if (!valid) {
-          return res.json(401, {err: 'invalid password'});
+          return res.json(401, {error: 'Invalid password'});
         } else {
           res.json({
             user: user,
-            token: AuthService.issueToken(user._id)
+            token: AuthService.issueToken(user.id)
           });
         }
       });
@@ -51,9 +51,9 @@ module.exports = {
     var confirmPassword = req.body.confirmPassword;
 
     if (!email || !password || !confirmPassword) {
-      return res.json(401, {error: 'email and password required'});
+      return res.json(401, {error: 'Email and password required'});
     }
-    
+
     if (password !== confirmPassword) {
       return res.json(401, {error: 'Password doesn\'t match'});
     }
@@ -72,4 +72,3 @@ module.exports = {
     });
   }
 };
-
