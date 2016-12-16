@@ -5,19 +5,26 @@ angular
     this.newChatName = '';
     var userData = JSON.parse(localStorage.getItem('user'));
     io.sails.transports = ['websocket'];
-    io.sails.headers = { 'Authorization': 'Bearer ' + userData.token };
+    io.sails.headers = {
+      'Authorization': 'Bearer ' + userData.token,
+      'user': userData.user.id
+    };
     var socket = io.sails.connect();
     socket.on('message', function (msg) {
       console.log(msg);
     });
+    socket.on('chat', function (msg) {
+      if (msg.verb === 'addedTo' &&
+          msg.attribute === 'messages') {
+        ctrl.chat.messages.push(msg.added);
+        $scope.$apply();
+      }
+    });
     socket.get('/chat', function (data) {
       if (data.error) {
         ctrl.chats = [];
-        console.log('Rejecting');
       } else {
         ctrl.chats = data.chat;
-        console.log(data);
-        console.log('Resolving');
       }
       $scope.$apply();
     });
@@ -44,6 +51,8 @@ angular
           if (data.error) {
             console.error(data.error);
           }
+          console.log(data);
+          ctrl.newChatName = '';
           $('#new_chat_modal').modal('hide');
         }
       );
@@ -56,9 +65,8 @@ angular
       socket.post(destination, {
         author: userData.user.id,
         text: ctrl.message
-      }, function (data) {
-        debugger;
       });
+      ctrl.message = '';
     }
   }])
   .directive('pageMain', function () {

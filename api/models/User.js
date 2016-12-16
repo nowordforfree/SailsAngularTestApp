@@ -8,15 +8,10 @@ var bcrypt = require('bcrypt');
 
 module.exports = {
   attributes: {
-    id: {
-      type: 'string',
-      unique: true,
-      primaryKey: true
-    },
     firstname : { type: 'string' },
     lastname : { type: 'string' },
     email : { type: 'email', required: true, unique: true },
-    password : { type: 'string', required: true },
+    password : { type: 'string', required: true, minLength: 6 },
     getFullName: function () {
       return this.firstname + ' ' + this.lastname;
     }

@@ -7,6 +7,7 @@
 module.exports = {
   attributes: {
     author : { model: 'User', required: true },
-    text: { type: 'string' }
+    text: { type: 'string' },
+    chat: { model: 'Chat' }
   }
 };
