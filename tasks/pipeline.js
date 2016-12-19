@@ -26,7 +26,9 @@ var cssFilesToInject = [
 var jsFilesToInject = [
 
   // Load sails.io before everything else
-  'js/dependencies/sails.io.js',
+  // 'js/dependencies/sails.io.js',
+  // removed from here to set "autoConnect" false
+  // included statically in index.html
   // Dependencies like jQuery, or Angular are brought in here
   // FIXME
   // Setting libraries loading in correct order
@@ -36,11 +38,9 @@ var jsFilesToInject = [
   'js/dependencies/angular-route.js',
   'js/dependencies/material',
   'js/dependencies/ripples',
-  'js/dependencies/**/*.js',
-
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/**/*.js',
+  'js/**/!(app|sails\.io).js',
   // app.js should be included last
   'js/app/app.js'
 ];
