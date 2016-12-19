@@ -52,9 +52,22 @@ module.exports = {
    * `UserController.update()`
    */
   update: function (req, res) {
-    return res.json({
-      todo: 'update() is not implemented yet!'
-    });
+		if (!req.body.userid) {
+			return res.json({
+				error: 'User Id is not in request body'
+			});
+		}
+		var userid = req.body.userid;
+		delete req.body.userid;
+		User.update({ id: userid }, req.body)
+				.exec(function (err, updated) {
+					if (err) {
+						return res.json(err.status, { error: err });
+					}
+					res.json(200, {
+						message: updated
+					});
+				});
   },
 
 
@@ -62,8 +75,18 @@ module.exports = {
    * `UserController.delete()`
    */
   delete: function (req, res) {
-    return res.json({
-      todo: 'delete() is not implemented yet!'
-    });
+		if (!req.body.userid) {
+			return res.json({
+				error: 'User Id is not in request body'
+			});
+		}
+    User.destroy({
+			id: req.body.userid
+		}).exec(function (err) {
+			if (err) {
+				res.negotiate(err);
+			}
+			res.ok();
+		});
   }
 };

@@ -31,23 +31,23 @@ module.exports = {
 				.populate('participants')
 				.populate('messages', {
 					limit: 100,
-					sort: 'createdAt DESC'
+					sort: 'createdAt ASC'
 				})
 				.exec(function (err, chat) {
 		      if (err) {
 		        return res.json(err.status, {error: err});
 		      }
 		      if (chat) {
-						chat.participants.add(req.headers.user);
-						chat.save(function (err) {
-							if (err) {
-								res.serverError(err);
-							}
+						// chat.participants.add(req.headers.user);
+						// chat.save(function (err) {
+						// 	if (err) {
+						// 		res.serverError(err);
+						// 	}
 							if (req.isSocket) {
 								Chat.subscribe(req, chat.id);
 							}
 							res.json(200, { chat: chat });
-						});
+						// });
 					} else {
 						res.json(200, { chat: null });
 					}
@@ -96,9 +96,6 @@ module.exports = {
 				});
 	},
 	postMessage: function (req, res) {
-		if (!req.body.author) {
-			res.json(400, { error: 'Required field is missing' });
-		}
 		Chat
 			.findOne({ name: req.param('name') })
 			.populateAll()
@@ -106,23 +103,35 @@ module.exports = {
 				if (err) {
 					return res.serverError(err);
 				}
-				var message = {
-					author: req.body.author,
-					text: req.body.text,
-					chat: chat.id
-				};
-				Message
-					.create(message)
-					.exec(function (err, msg) {
-						chat.messages.add(msg.id);
-						chat.save(function (err) {
+				User.findOneById(req.headers.user)
+						.exec(function (err, user) {
 							if (err) {
 								return res.json(err.status, { error: err });
 							}
-							console.log(chat);
-							Chat.publishAdd(chat.id, 'messages', msg);
+							if (!user) {
+								return res.json({ error: 'User was not found' });
+							}
+							var message = {
+								author: req.headers.user,
+								username: user.getFullName(),
+								text: req.body.text,
+								chat: chat.id
+							};
+							Message
+							.create(message)
+							.exec(function (err, msg) {
+								if (err) {
+									return res.json(err.status, { error: err });
+								}
+								chat.messages.add(msg.id);
+								chat.save(function (err) {
+									if (err) {
+										return res.json(err.status, { error: err });
+									}
+									Chat.publishAdd(chat.id, 'messages', msg);
+								});
+							});
 						});
-					});
 			});
 	}
 };

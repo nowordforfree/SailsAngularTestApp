@@ -15,7 +15,10 @@
   </div>
   <div class="main container-fluid clearfix">
     <div class="container text-center">
-      <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#auth_modal">Sign In</button>
+      <button type="button" class="btn btn-lg btn-raised btn-primary"
+              data-toggle="modal" data-target="#auth_modal">
+        Sign In
+      </button>
     </div>
     <div class="modal fade" id="auth_modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
@@ -57,7 +60,7 @@
                       <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                   </div>
-                  <div class="alert-danger error-block"></div>
+                  <div class="alert alert-danger error-block"></div>
                   <input type="submit" class="hidden">
                 </form>
               </div>
@@ -81,15 +84,15 @@
                       <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                     </div>
                   </div>
-                  <div class="alert-danger error-block"></div>
+                  <div class="alert alert-danger error-block"></div>
                   <input type="submit" class="hidden">
                 </form>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="submit($event)">Sign In</button>
+            <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-raised btn-primary" ng-click="submit($event)">Sign In</button>
           </div>
         </div>
       </div>

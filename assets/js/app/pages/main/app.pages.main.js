@@ -1,14 +1,27 @@
 angular
   .module('SailsNgApp.pages.main', [])
   .controller('MainController', ['$scope', '$q', function ($scope, $q) {
+    // Initialize material theme js
+    $.material.init();
     var ctrl = this;
     this.newChatName = '';
+    this.modalContent = '';
+    this.templates = {
+      createChat: '/templates/createChat.html',
+      profile: '/templates/profile.html'
+    };
     var userData = JSON.parse(localStorage.getItem('user'));
     io.sails.transports = ['websocket'];
     io.sails.headers = {
       'Authorization': 'Bearer ' + userData.token,
       'user': userData.user.id
     };
+    $scope.$on('hidden.bs.modal', function () {
+      $('.modal').find('input').val('');
+    });
+    $scope.$on('$includeContentLoaded', function () {
+      $('#modal').modal('show');
+    });
     var socket = io.sails.connect();
     socket.on('message', function (msg) {
       console.log(msg);
@@ -63,10 +76,22 @@ angular
           this.chat.name +
           '/message';
       socket.post(destination, {
-        author: userData.user.id,
         text: ctrl.message
       });
       ctrl.message = '';
+    }
+    this.showModal = function (template) {
+      if (!(template in ctrl.templates)) {
+        return console.error('Invalid template!', template);
+      }
+      if (ctrl.modalContent !== ctrl.templates[template]) {
+        ctrl.modalContent = ctrl.templates[template];
+      } else {
+        $('#modal').modal('show');
+      }
+    }
+    this.updateProfile = function (e) {
+      debugger;
     }
   }])
   .directive('pageMain', function () {

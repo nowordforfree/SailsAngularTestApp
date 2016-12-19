@@ -1,0 +1,70 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title text-center">Profile</h4>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" name="ctrl.profileForm" ng-submit="ctrl.updateProfile($event)" novalidate>
+        <div class="form-group">
+          <label for="avatar" class="col-sm-3 control-label">Your profile photo (avatar)</label>
+          <div class="col-sm-9">
+            <img alt="Your avatar" class="avatar" ng-src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iMzYuMTI0NDQzbW0iCiAgIGhlaWdodD0iMzYuMTI0NDQzbW0iCiAgIHZpZXdCb3g9IjAgMCAxMjcuOTk5OTkgMTI3Ljk5OTk5IgogICBpZD0ic3ZnNTMwMSIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJzaW9uPSIwLjkxIHIxMzcyNSIKICAgc29kaXBvZGk6ZG9jbmFtZT0iYmVuZWZpY2lhcnktcGhvdG8uc3ZnIj4KICA8ZGVmcwogICAgIGlkPSJkZWZzNTMwMyI+CiAgICA8Y2xpcFBhdGgKICAgICAgIGNsaXBQYXRoVW5pdHM9InVzZXJTcGFjZU9uVXNlIgogICAgICAgaWQ9ImNsaXBQYXRoNTE3MyI+CiAgICAgIDxwYXRoCiAgICAgICAgIGQ9Im0gMCwxNTA5LjQ4OSAxNjAwLDAgTCAxNjAwLDAgMCwwIDAsMTUwOS40ODkgWiIKICAgICAgICAgaWQ9InBhdGg1MTc1IgogICAgICAgICBpbmtzY2FwZTpjb25uZWN0b3ItY3VydmF0dXJlPSIwIiAvPgogICAgPC9jbGlwUGF0aD4KICA8L2RlZnM+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJiYXNlIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnpvb209IjAuNSIKICAgICBpbmtzY2FwZTpjeD0iLTU5MC45OTk5NCIKICAgICBpbmtzY2FwZTpjeT0iLTE2NC41NzE1IgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJweCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGZpdC1tYXJnaW4tdG9wPSIwIgogICAgIGZpdC1tYXJnaW4tbGVmdD0iMCIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSIwIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMTkyMCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIzIgogICAgIGlua3NjYXBlOndpbmRvdy14PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIwIgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiIC8+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhNTMwNiI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI2Ny40Mjg1MiwtMjM5Ljc5MDcpIj4KICAgIDxnCiAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjg0MjEwNTI2LDAsMCwtMC44NDIxMDUyNiwtNjMyLjk4NDUzLDEzMzcuNzI2NykiCiAgICAgICBpZD0iZzUxNjkiPgogICAgICA8ZwogICAgICAgICBpZD0iZzUxNzEiCiAgICAgICAgIGNsaXAtcGF0aD0idXJsKCNjbGlwUGF0aDUxNzMpIj4KICAgICAgICA8ZwogICAgICAgICAgIGlkPSJnNTE3NyIKICAgICAgICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjIwLjI0MDUsMTIyNy43OTkpIj4KICAgICAgICAgIDxwYXRoCiAgICAgICAgICAgICBkPSJtIDAsMCBjIDAsLTQxLjQyMSAtMzMuNTc5LC03NSAtNzUsLTc1IC00MS40MjEsMCAtNzUsMzMuNTc5IC03NSw3NSAwLDQxLjQyMSAzMy41NzksNzUgNzUsNzUgQyAtMzMuNTc5LDc1IDAsNDEuNDIxIDAsMCBaIgogICAgICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6I2U5ZTllOTtzdHJva2Utd2lkdGg6MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgICAgIGlkPSJwYXRoNTE3OSIKICAgICAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICAgICAgPC9nPgogICAgICAgIDxnCiAgICAgICAgICAgaWQ9Imc1MTgxIgogICAgICAgICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKDExMDcuNDc3NywxMTYyLjgxODEpIj4KICAgICAgICAgIDxwYXRoCiAgICAgICAgICAgICBkPSJtIDAsMCBjIDE1Ljk4OSw2LjU3IDIxLjAxNCwxMy4yMDkgMjEuMDE0LDI2LjUzNiAwLDQuMzQzIC0xLjI4OSw2LjIyIC0yLjY0OCw4LjIxMSAtMS40MDMsMi4wNDYgLTMuMTUxLDQuNTk4IC00LjQ3OSwxMS43OTEgLTAuNjQ1LDMuNDc5IC0yLjY1OCw0LjQ1MiAtMy45OTcsNS4wOTIgLTEuNDI5LDAuNjkgLTIuOTEyLDEuNDAyIC0zLjQzLDguMTQ3IDAsMy42ODcgMS41NzksNC42NTIgMS41NjQsNC42NTIgMC45NTYsMC40NDEgMS40OTcsMS40NzQgMS4zMDYsMi41MDkgLTAuMDAzLDAuMDE0IC0wLjY5NywzLjgzNiAtMS4zMzMsOC4yNTMgLTEuOTM5LDExLjg2MSAtMS45MDcsMjQuNzk5IDEzLjAxMSwzMC44MzggNS4xODIsMi4wOTUgMTAuMjgzLDMuMTU5IDE1LjE1NiwzLjE1OSA3LjY3NCwwIDExLjU2NCwtMi41ODIgMTIuMTA4LC0zLjUyNCAwLjMwNywtMC41MjMgMC44MTEsLTAuOTExIDEuMzk2LC0xLjA2OCAwLjAxMSwtMC4wMDMgMC41MjgsLTAuMTQ0IDAuNTM3LC0wLjE0OSAwLjE4NCwtMC4wNDQgMC42NzUsLTAuMDY3IDAuODcsLTAuMDY3IDEuNzc2LDAgNy44ODcsLTAuMzU2IDExLjg2MSwtNC45OCA2LjE4MywtNy4yMDIgNC4yOTIsLTI2LjMxOSAzLjE0MSwtMzIuNDQ4IC0wLjE4LC0wLjk2IDAuMzcxLC0xLjk4OCAxLjIxOCwtMi40NzkgMC4wNjYsLTAuMDM2IDEuNjUsLTEgMS42NTMsLTQuNTI1IC0wLjUxNywtNi45MTcgLTIsLTcuNjMgLTMuNDI4LC04LjMyIC0xLjMzMywtMC42NCAtMy4zNTIsLTEuNjE0IC0zLjk5MiwtNS4wOTIgLTEuMzM1LC03LjE5MyAtMy4wNzcsLTkuNzQzIC00LjQ3OSwtMTEuNzk0IC0xLjM2MiwtMS45ODYgLTIuNjQ0LC0zLjg2NiAtMi42NDQsLTguMjA2IDAsLTEzLjMyNiA1LjAzNCwtMTkuOTY0IDIxLjAxNCwtMjYuNTQxIgogICAgICAgICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6I2U5ZTllOTtzdHJva2Utd2lkdGg6MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgICAgICAgIGlkPSJwYXRoNTE4MyIKICAgICAgICAgICAgIGlua3NjYXBlOmNvbm5lY3Rvci1jdXJ2YXR1cmU9IjAiIC8+CiAgICAgICAgPC9nPgogICAgICA8L2c+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K" />
+            <label type="button" class="btn btn-default upload-avatar-btn">
+              Browse<input type="file" name="avatar" ng-model="ctrl.profile.avatar"
+                           class="hidden" accept="image/jpeg,image/png,image/gif">
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="firstname" class="col-sm-3 control-label">First name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control"
+                   id="firstname" name="firstname"
+                   ng-model="ctrl.profile.firstname" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname" class="col-sm-3 control-label">Last name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control"
+                   id="lastname" name="lastname"
+                   ng-model="ctrl.profile.lastname" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Email</label>
+          <div class="col-sm-9">
+            <input type="email" class="form-control"
+                   id="email" name="email"
+                   ng-model="ctrl.profile.email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-3 control-label">Password</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control"
+                   id="password" name="password"
+                   ng-model="ctrl.profile.password" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control"
+                   id="confirmPassword" name="confirmPassword"
+                   ng-model="ctrl.profile.confirmPassword" required>
+          </div>
+        </div>
+        <div class="alert-danger error-block"></div>
+        <input type="submit" class="hidden">
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      <button type="button" class="btn btn-primary" ng-click="ctrl.updateProfile($event)">Update Profile</button>
+    </div>
+  </div>
+</div>

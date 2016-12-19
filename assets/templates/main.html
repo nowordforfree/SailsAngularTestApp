@@ -26,51 +26,33 @@ body { padding-top: 70px; }
             <ul class="dropdown-menu">
               <li><a href="#">Notifications settings</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Profile Settings</a></li>
+              <li><a ng-click="ctrl.showModal('profile')">Profile Settings</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Logout</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+  <div class="modal fade" id="modal" tabindex="-1"
+       role="dialog" ng-include="ctrl.modalContent">
+  </div>
   <div class="row">
     <div class="col-sm-3">
-      <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#new_chat_modal">
+      <button class="btn btn-raised btn-primary btn-block" ng-click="ctrl.showModal('createChat')">
         Create new chat
       </button>
       <br/>
-      <ul class="list-group">
+      <div class="list-group">
         <div class="text-center text-muted" ng-if="!ctrl.chats.length">
           No chats found<br/>Use button above to create one
         </div>
-        <li class="list-group-item btn"
+        <div class="list-group-item btn btn-raised"
             ng-repeat="chat in ctrl.chats track by chat.id"
             ng-click="ctrl.selectChat($event)">
-          {{ chat.name }}
-        </li>
-      </ul>
-      <div class="modal fade" id="new_chat_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h4 class="modal-title">Give a name for new chat</h4>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" ng-submit="ctrl.createChat($event)" novalidate>
-                <div class="form-group">
-                  <label for="newChatName" class="sr-only control-label">New Chat Name</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control"
-                           id="newChatName" placeholder="New Chat"
-                           ng-model="ctrl.newChatName" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Create!</button>
-                </div>
-              </form>
-            </div>
+          <div class="row-content">
+            <h4 class="list-group-item-text">{{ chat.name }}</h4>
           </div>
         </div>
       </div>
@@ -78,21 +60,28 @@ body { padding-top: 70px; }
     <div class="col-sm-9">
       <div class="chat">
         <div class="messages">
-          <ul>
-            <li ng-repeat="message in ctrl.chat.messages track by message.id">
-              {{ message.author.email}}: {{ message.text }}
-            </li>
-          </ul>
+          <div class="panel panel-default"
+               ng-repeat="message in ctrl.chat.messages track by message.id">
+            <div class="panel-heading">
+              {{ message.username }}
+              <span class="pull-right">
+                {{ message.createdAt | date:"MM/dd/yyyy 'at' HH:mm" }}
+              </span>
+            </div>
+            <div class="panel-body">{{ message.text }}</div>
+          </div>
         </div>
         <div class="message" ng-hide="!ctrl.chat">
           <form class="form" ng-submit="ctrl.sendMessage()" novalidate>
-            <div class="form-group input-group">
-              <input type="text" class="form-control" ng-model="ctrl.message">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" value="Send">
-                  <i class="glyphicon glyphicon-send"></i>
-                </button>
-              </span>
+            <div class="form-group label-floating">
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="ctrl.message">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-fab btn-fab-mini">
+                    <i class="material-icons">send</i>
+                  </button>
+                </span>
+              </div>
             </div>
           </form>
         </div>

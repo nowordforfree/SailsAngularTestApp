@@ -27,19 +27,22 @@ var jsFilesToInject = [
 
   // Load sails.io before everything else
   'js/dependencies/sails.io.js',
+  // Dependencies like jQuery, or Angular are brought in here
   // FIXME
   // Setting libraries loading in correct order
   'js/dependencies/jquery.js',
   'js/dependencies/bootstrap.js',
   'js/dependencies/angular.js',
   'js/dependencies/angular-route.js',
-  // Dependencies like jQuery, or Angular are brought in here
+  'js/dependencies/material',
+  'js/dependencies/ripples',
   'js/dependencies/**/*.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.
-  'js/**/*.js'
-
+  'js/**/*.js',
+  // app.js should be included last
+  'js/app/app.js'
 ];
 
 // Client-side HTML templates are injected using the sources below
@@ -59,7 +62,9 @@ var jsNodeModulesToCopy = [
   'jquery',
   'bootstrap/dist/js/bootstrap',
   'angular/angular',
-  'angular-route/angular-route'
+  'angular-route/angular-route',
+  'bootstrap-material-design/dist/js/material',
+  'bootstrap-material-design/dist/js/ripples'
 ];
 
 var fontsToCopy = './node_modules/bootstrap/dist/fonts';

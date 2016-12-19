@@ -1,19 +1,22 @@
 /**
  * User.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @description :: User model
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 var bcrypt = require('bcrypt');
 
 module.exports = {
   attributes: {
+    avatar: { type: 'string' },
     firstname : { type: 'string' },
     lastname : { type: 'string' },
     email : { type: 'email', required: true, unique: true },
     password : { type: 'string', required: true, minLength: 6 },
     getFullName: function () {
-      return this.firstname + ' ' + this.lastname;
+      return (this.firstname && this.lastname) ?
+              this.firstname + ' ' + this.lastname :
+              this.email;
     }
   },
   beforeCreate: function(values, next) {

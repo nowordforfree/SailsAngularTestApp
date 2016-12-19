@@ -29,9 +29,11 @@
 //
 // etc.
 @import '../../node_modules/bootstrap/less/bootstrap.less';
+@import '../../node_modules/bootstrap-material-design/less/bootstrap-material-design.less';
+@import '../../node_modules/bootstrap-material-design/less/ripples.less';
 
 body {
-  font-family:"Open Sans", Arial, sans-serif;
+  font-family: Roboto, "Open Sans", Arial, sans-serif;
   font-weight:300;
   margin: 0;
   .header {
@@ -57,17 +59,30 @@ body {
     height: 100px;
     padding: 15px;
     .modal {
-      .modal-header {
-        border-bottom: 0;
+      img.avatar {
+        border-radius: 50%;
+        height: 135px;
+        width: 135px;
       }
+    //   .modal-header {
+    //     border-bottom: 0;
+    //   }
     }
   }
   .chat {
     position: relative;
-    .message {
+    .messages {
+      height: 75%;
+      overflow: auto;
+      padding-right: 15px;
       position: fixed;
-      padding: 15px;
+      right: 25px;
+      width: 70%;
+    }
+    .message {
       bottom: 0;
+      padding: 15px;
+      position: fixed;
     }
   }
 }
