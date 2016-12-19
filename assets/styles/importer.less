@@ -33,7 +33,7 @@
 @import '../../node_modules/bootstrap-material-design/less/ripples.less';
 
 body {
-  font-family: Roboto, "Open Sans", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-weight:300;
   margin: 0;
   .header {
@@ -54,35 +54,34 @@ body {
       font-weight: 300;
     }
   }
-  .main {
+  .home {
     background: linear-gradient(#118798, #ffffff);
     height: 100px;
     padding: 15px;
+  }
+  .main {
     .modal {
       img.avatar {
         border-radius: 50%;
         height: 135px;
         width: 135px;
       }
-    //   .modal-header {
-    //     border-bottom: 0;
-    //   }
     }
-  }
-  .chat {
-    position: relative;
-    .messages {
-      height: 75%;
-      overflow: auto;
-      padding-right: 15px;
-      position: fixed;
-      right: 25px;
-      width: 70%;
-    }
-    .message {
-      bottom: 0;
-      padding: 15px;
-      position: fixed;
+    .chat {
+      position: relative;
+      .messages {
+        height: 75%;
+        overflow: auto;
+        padding-right: 15px;
+        position: fixed;
+        right: 25px;
+        width: 70%;
+      }
+      .message {
+        bottom: 0;
+        padding: 15px;
+        position: fixed;
+      }
     }
   }
 }
