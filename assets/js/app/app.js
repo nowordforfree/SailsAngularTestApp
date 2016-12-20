@@ -22,6 +22,25 @@ var appmodule =
 
           $locationProvider.html5Mode(true);
       }
+    ])
+    .run(['$rootScope', '$location',
+      function ($rootScope, $location) {
+        $rootScope.$on('$routeChangeStart', function (e) {
+          var userData = localStorage.getItem('user');
+          if (!userData ||
+              !JSON.parse(userData).token) {
+            if ($location.path() !== '/') {
+              e.preventDefault();
+              $location.path('/');
+            }
+          } else {
+            if ($location.path() === '/') {
+              e.preventDefault();
+              $location.path('/main');
+            }
+          }
+        });
+      }
     ]);
 
 angular.bootstrap(document.body, [appName]);

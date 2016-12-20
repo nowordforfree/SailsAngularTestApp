@@ -33,7 +33,7 @@
 @import '../../node_modules/bootstrap-material-design/less/ripples.less';
 
 body {
-  font-family: Roboto, Arial, sans-serif;
+  font-family: 'Roboto Regular', Arial, sans-serif;
   font-weight:300;
   margin: 0;
   .header {
@@ -60,6 +60,16 @@ body {
     padding: 15px;
   }
   .main {
+    .navbar {
+      .navbar-brand {
+        padding: 2px 0 2px 15px;
+        .avatar {
+          border-radius: 50%;
+          height: 100%;
+          margin-right: 10px;
+        }
+      }
+    }
     .modal {
       img.avatar {
         border-radius: 50%;
@@ -82,6 +92,14 @@ body {
         padding: 15px;
         position: fixed;
       }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .main {
+    .navbar .navbar-brand {
+      line-height: 25px;
     }
   }
 }

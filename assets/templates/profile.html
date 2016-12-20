@@ -44,6 +44,13 @@
           </div>
         </div>
         <div class="form-group">
+          <div class="togglebutton">
+            <label class="col-sm-6">
+              <input type="checkbox" ng-model="ctrl.changePassword"> Change Password
+            </label>
+          </div>
+        </div>
+        <div class="form-group" ng-show="ctrl.changePassword">
           <label for="password" class="col-sm-3 control-label">Password</label>
           <div class="col-sm-9">
             <input type="password" class="form-control"
@@ -51,7 +58,7 @@
                    ng-model="ctrl.profile.password" required>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-show="ctrl.changePassword">
           <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
           <div class="col-sm-9">
             <input type="password" class="form-control"
@@ -67,4 +74,7 @@
       </form>
     </div>
   </div>
+  <script type="text/javascript">
+    $.material.init();
+  </script>
 </div>

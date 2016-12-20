@@ -5,81 +5,115 @@ angular
   .controller('HomeController',
     ['$scope', '$http', '$location',
     function ($scope, $http, $location) {
-      $scope.submit = function(e) {
+      $.material.init();
+      var ctrl = this;
+      this.login = {
+        errors: [],
+        data: {
+          email: '',
+          password: ''
+        }
+      };
+      this.register = {
+        errors: [],
+        data: {
+          email: '',
+          password: '',
+          confirmPassword: ''
+        }
+      };
+      this.submit = function(e) {
         var $form = $('form:visible');
         $form
           .find('.form-group')
           .removeClass('has-error');
-        $form
-          .find('.error-block')
-          .empty();
+        // $form
+        //   .find('.error-block')
+        //   .empty();
 
-        var formDataArr = $form.serializeArray();
-        var formData = {};
-        formDataArr.forEach(function (obj) {
-          formData[obj.name] = obj.value;
-        });
+        // var formDataArr = $form.serializeArray();
+        // var formData = {};
+        // formDataArr.forEach(function (obj) {
+        //   formData[obj.name] = obj.value;
+        // });
 
-        var errors = {};
         var target = $form.parent('.tab-pane')
                           .attr('id')
                           .replace('tab_', '');
         target = target.toLowerCase();
-        if (!formData.email) {
-          errors.email = 'Email is required';
-        }
-        if (!formData.password) {
-          errors.password = 'Password is required';
-        }
-        if (target.toLowerCase() === 'register' && !formData.confirmPassword) {
-          errors.confirmPassword = 'Confirm password is required';
-        }
 
-        if (Object.keys(errors).length) {
-          for (var key in errors) {
-            var error = $('<div></div>');
-            error
-              .addClass('text-center')
-              .text(errors[key])
-            $form
-              .find('.error-block')
-              .append(error);
-            $form
-              .find('.form-control[name=' + key + ']')
-              .parents('.form-group')
-              .addClass('has-error');
-          }
-          return;
-        }
+        ctrl[target].errors = [];
 
-        if (!emailRegExp.test(formData.email)) {
+        if (!ctrl[target].data.email) {
+          ctrl[target].errors.push({
+            key: 'email',
+            value: 'Email is required'
+          });
+          $form
+            .find('.form-control[name=email]')
+            .parents('.form-group')
+            .addClass('has-error');
+        } else if (!emailRegExp.test(ctrl[target].data.email)) {
+          ctrl[target].errors.push({
+            key: 'email',
+            value: 'Provided email does not seem to be correct'
+          });
           $form
             .find('.form-control[name=email]')
             .addClass('has-error');
-          var error = $('<div></div>');
-          error
-            .addClass('text-center')
-            .text('Provided email does not seem to be correct');
-          $form
-            .find('.error-block')
-            .append(error);
-          return;
         }
-
-        if (target === 'register') {
-          if (formData.password !== formData.confirmPassword) {
+        if (!ctrl[target].data.password) {
+          ctrl[target].errors.push({
+            key: 'password',
+            value: 'Password is required'
+          });
+          $form
+            .find('.form-control[name=password]')
+            .parents('.form-group')
+            .addClass('has-error');
+        } else if (ctrl[target].data.password.length < 6) {
+          ctrl[target].errors.push({
+            key: 'password',
+            value: 'Password should contain at least 6 characters'
+          });
+          $form
+            .find('.form-control[name=password]')
+            .parents('.form-group')
+            .addClass('has-error');
+        }
+        if (target.toLowerCase() === 'register') {
+          if (!ctrl[target].data.confirmPassword) {
+            ctrl[target].errors.push({
+              key: 'confirm password',
+              value: 'Confirm password is required'
+            });
             $form
               .find('.form-control[name=confirmPassword]')
+              .parents('.form-group')
               .addClass('has-error');
-            var error = $('<div></div>');
-            error
-              .addClass('text-center')
-              .text('Password and password confirmation are not match');
+          } else if (ctrl[target].data.confirmPassword.length < 6) {
+            ctrl[target].errors.push({
+              key: 'confirm password',
+              value: 'Confirm password should contain at least 6 characters'
+            });
             $form
-              .find('.error-block')
-              .append(error);
-            return;
+              .find('.form-control[name=confirmPassword]')
+              .parents('.form-group')
+              .addClass('has-error');
+          } else if (ctrl[target].data.password !== ctrl[target].data.confirmPassword) {
+            ctrl[target].errors.push({
+              key: 'confirm password',
+              value: 'Password and password confirmation are not match'
+            });
+            $form
+              .find('.form-control[name=confirmPassword]')
+              .parents('.form-group')
+              .addClass('has-error');
           }
+        }
+
+        if (ctrl[target].errors.length) {
+          return;
         }
 
         var req = {
@@ -88,31 +122,27 @@ angular
         };
 
         if (target === 'login') {
-          req.params = formData;
+          req.params = ctrl[target].data;
         } else {
-          req.data = formData;
+          req.data = ctrl[target].data;
         }
 
         $http(req).then(
           function success(response) {
             if (response.data.token) {
               $('#auth_modal').modal('hide');
-              window.localStorage
-                    .setItem(
-                      'user',
-                      JSON.stringify(response.data)
-                    );
+              localStorage.setItem(
+                'user',
+                JSON.stringify(response.data)
+              );
 
-              $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-              $location.path('main').replace();
+              // $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+              $location.path('/main').replace();
             } else {
-              var error = $('<div></div>');
-              error
-                .addClass('text-center')
-                .text('No token found in response');
-              $form
-                .find('.error-block')
-                .append(error);
+              ctrl[target].errors.push({
+                key: 'authorization',
+                value: 'No token found in response'
+              });
               console.error(response);
             }
           },
@@ -125,20 +155,18 @@ angular
                         .error
                         .invalidAttributes[field]
                         .map(function (obj) {
-                          allErrors.push(obj.message);
+                          ctrl[target].errors.push({
+                            key: field,
+                            value: obj.message
+                          });
                         });
               }
-              errorText = allErrors.join('\n');
             } else {
-              errorText = response.data.error;
+              ctrl[target].errors.push({
+                key: 'Error',
+                value: response.data.error
+              });
             }
-            var error = $('<div></div>');
-            error
-              .addClass('text-center')
-              .text(errorText);
-            $form
-              .find('.error-block')
-              .append(error);
           }
         );
       }
@@ -147,6 +175,10 @@ angular
   .directive('pageHome', function () {
     return {
       restrict: 'AE',
-      templateUrl: '/templates/home.html'
+      templateUrl: '/templates/home.html',
+      scope: {},
+      bindToController: true,
+      controller: 'HomeController',
+      controllerAs: 'ctrl'
     }
   });

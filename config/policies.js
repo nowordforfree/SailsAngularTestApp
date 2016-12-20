@@ -33,6 +33,9 @@ module.exports.policies = {
   UserController: {
     '*': 'tokenAuth',
     'create': true
+  },
+  ChatController: {
+    '*': 'tokenAuth'
   }
 
   /***************************************************************************

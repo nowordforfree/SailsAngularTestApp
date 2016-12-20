@@ -52,14 +52,12 @@ module.exports = {
    * `UserController.update()`
    */
   update: function (req, res) {
-		if (!req.body.userid) {
+		if (!req.params.id) {
 			return res.json({
 				error: 'User Id is not in request body'
 			});
 		}
-		var userid = req.body.userid;
-		delete req.body.userid;
-		User.update({ id: userid }, req.body)
+		User.update({ id: req.params.id }, req.body)
 				.exec(function (err, updated) {
 					if (err) {
 						return res.json(err.status, { error: err });
@@ -75,13 +73,13 @@ module.exports = {
    * `UserController.delete()`
    */
   delete: function (req, res) {
-		if (!req.body.userid) {
+		if (!req.params.id) {
 			return res.json({
-				error: 'User Id is not in request body'
+				error: 'User Id is missing'
 			});
 		}
     User.destroy({
-			id: req.body.userid
+			id: req.params.id
 		}).exec(function (err) {
 			if (err) {
 				res.negotiate(err);

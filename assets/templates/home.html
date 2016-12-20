@@ -6,11 +6,10 @@
   }, 0);
 </script>
 
-<div class="default-page" ng-controller="HomeController as ctrl">
+<div class="default-page">
   <div class="header">
     <h1 class="container main-title">Welcome</h1>
     <h3 class="container">Sign in to get access to all features</h3>
-    <i>A brand new app</i>
   </div>
   <div class="container-fluid home clearfix">
     <div class="container text-center">
@@ -46,44 +45,66 @@
           <div class="modal-body">
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane fade in active" id="tab_login">
-                <form class="form-horizontal" name="ctrl.loginForm" ng-submit="submit($event)" novalidate>
+                <form class="form-horizontal" name="loginForm" ng-submit="ctrl.submit($event)" novalidate>
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
-                      <input type="email" class="form-control" id="email" name="email" required>
+                      <input type="email" class="form-control" id="email"
+                             name="email" ng-model="ctrl.login.data.email" required>
+                      <span class="help-block">Please enter a valid email address</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="password" class="col-sm-3 control-label">Password</label>
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="password" name="password" required>
+                      <input type="password" class="form-control" id="password"
+                             name="password" ng-model="ctrl.login.data.password" required>
+                      <span class="help-block">Minimum length is 6 characters</span>
                     </div>
                   </div>
-                  <div class="alert alert-danger error-block"></div>
+                  <div class="form-group">
+                    <div class="alert alert-danger error-block" ng-show="ctrl.login.errors.length">
+                      <div class="text-center" ng-repeat="error in ctrl.login.errors">
+                        {{error.key | uppercase}}: {{error.value}}
+                      </div>
+                    </div>
+                  </div>
                   <input type="submit" class="hidden">
                 </form>
               </div>
               <div role="tabpanel" class="tab-pane fade" id="tab_register">
-                <form class="form-horizontal" name="ctrl.registerFsorm" ng-submit="submit($event)" novalidate>
+                <form class="form-horizontal" name="registerForm" ng-submit="ctrl.submit($event)" novalidate>
                   <div class="form-group">
                     <label for="email" class="col-sm-3 control-label">Email</label>
                     <div class="col-sm-9">
-                      <input type="email" class="form-control" id="email" name="email" required>
+                      <input type="email" class="form-control" id="email"
+                             name="email" ng-model="ctrl.register.data.email" required>
+                      <span class="help-block">Please enter a valid email address</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="password" class="col-sm-3 control-label">Password</label>
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="password" name="password" required>
+                      <input type="password" class="form-control" id="password"
+                             name="password" ng-model="ctrl.register.data.password" required>
+                      <span class="help-block">Minimum length is 6 characters</span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="confirmPassword" class="col-sm-3 control-label">Confirm password</label>
                     <div class="col-sm-9">
-                      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                      <input type="password" class="form-control" id="confirmPassword"
+                             name="confirmPassword" ng-model="ctrl.register.data.confirmPassword" required>
+                      <span class="help-block">Minimum length is 6 characters</span>
                     </div>
                   </div>
-                  <div class="alert alert-danger error-block"></div>
+                  <div class="form-group">
+                    <div class="alert alert-danger error-block" ng-show="ctrl.register.errors.length">
+                      <div class="text-center" ng-repeat="error in ctrl.register.errors">
+                        {{error.key | uppercase}}: {{error.value}}
+                      </div>
+                    </div>
+                  </div>
                   <input type="submit" class="hidden">
                 </form>
               </div>
@@ -91,7 +112,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-raised btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-raised btn-primary" ng-click="submit($event)">Sign In</button>
+            <button type="button" class="btn btn-raised btn-primary" ng-click="ctrl.submit($event)">Sign In</button>
           </div>
         </div>
       </div>

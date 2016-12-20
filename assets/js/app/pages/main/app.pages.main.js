@@ -1,6 +1,6 @@
 angular
   .module('SailsNgApp.pages.main', [])
-  .controller('MainController', ['$scope', '$q', function ($scope, $q) {
+  .controller('MainController', ['$scope', '$http', function ($scope, $http) {
     // Initialize material theme js
     $.material.init();
     var ctrl = this;
@@ -11,6 +11,7 @@ angular
       profile: '/templates/profile.html'
     };
     var userData = JSON.parse(localStorage.getItem('user'));
+    this.user = userData.user;
     io.sails.transports = ['websocket'];
     io.sails.headers = {
       'Authorization': 'Bearer ' + userData.token,
@@ -36,6 +37,7 @@ angular
     socket.get('/chat', function (data) {
       if (data.error) {
         ctrl.chats = [];
+        console.error(data.error);
       } else {
         ctrl.chats = data.chat;
       }
@@ -66,7 +68,7 @@ angular
           }
           console.log(data);
           ctrl.newChatName = '';
-          $('#new_chat_modal').modal('hide');
+          $('#modal').modal('hide');
         }
       );
     }
@@ -100,7 +102,42 @@ angular
 
     }
     this.updateProfile = function (e) {
-      debugger;
+      if (!$(e.target).is('form')) {
+        return;
+      }
+      var data = {};
+      $(e.target)
+        .serializeArray()
+        .filter(function (obj) {
+          return obj.value;
+        })
+        .map(function (obj) {
+          data[obj.name] = obj.value;
+        });
+
+      data.avatar = $(e.target)
+                      .find('.avatar')
+                      .attr('src');
+      socket.put(
+        '/user/' +  ctrl.user.id,
+        data,
+        function (data, jwr) {
+          $('#modal').modal('hide');
+          if (data.message && data.message.length) {
+            ctrl.user = data.message[0];
+            var userData = JSON.parse(localStorage.getItem('user'));
+            userData.user = ctrl.user;
+            localStorage.setItem('user', JSON.stringify(userData));
+          }
+          $('#modal').modal('hide');
+        }
+      );
+    }
+    this.logout = function () {
+      localStorage.removeItem('user');
+      socket.removeAllListeners();
+      delete io.sails.headers;
+      location.pathname = '/';
     }
     var defaultAvatar =
       'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLT'+
