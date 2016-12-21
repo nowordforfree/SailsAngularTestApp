@@ -4,14 +4,20 @@ angular
     // Initialize material theme js
     $.material.init();
     var ctrl = this;
-    this.newChatName = '';
+    this.feed = {
+      text: '',
+      receivers: []
+    };
     this.modalContent = '';
     this.templates = {
-      createChat: '/templates/createChat.html',
+      createChat: '/templates/createFeed.html',
       profile: '/templates/profile.html'
     };
     var userData = JSON.parse(localStorage.getItem('user'));
     this.user = userData.user;
+    this.removeReceiverAt = function (i) {
+      ctrl.feed.receivers.splice(i, 1);
+    }
     io.sails.transports = ['websocket'];
     io.sails.headers = {
       'Authorization': 'Bearer ' + userData.token,
@@ -24,64 +30,63 @@ angular
       $('#modal').modal('show');
     });
     var socket = io.sails.connect();
+    socket.on('feed', function (msg) {
+      debugger;
+    });
     socket.on('message', function (msg) {
-      console.log(msg);
+      ctrl.feeds.push(msg);
+      $scope.$apply();
     });
-    socket.on('chat', function (msg) {
-      if (msg.verb === 'addedTo' &&
-          msg.attribute === 'messages') {
-        ctrl.chat.messages.push(msg.added);
-        $scope.$apply();
-      }
-    });
-    socket.get('/chat', function (data) {
-      if (data.error) {
-        ctrl.chats = [];
-        console.error(data.error);
+    socket.get('/feed', function (res) {
+      if (res.error) {
+        ctrl.feeds = [];
+        console.error(res.error);
       } else {
-        ctrl.chats = data.chat;
+        ctrl.feeds = res.data;
       }
       $scope.$apply();
     });
-    this.selectChat = function (e) {
-      var $el = $(e.target);
-      if ($el.hasClass('active')) {
-        return;
-      }
-      $el.parent()
-         .find('.active')
-         .removeClass('active');
-      $el.addClass('active');
-
-      socket.get('/chat/' + $el.text().trim(), function (data) {
-        ctrl.chat = data.chat;
-        $scope.$apply();
-      });
-    }
-    this.createChat = function (e) {
+    // this.selectChat = function (e) {
+    //   var $el = $(e.target);
+    //   if ($el.hasClass('active')) {
+    //     return;
+    //   }
+    //   $el.parent()
+    //      .find('.active')
+    //      .removeClass('active');
+    //   $el.addClass('active');
+    //
+    //   socket.get('/chat/' + $el.text().trim(), function (data) {
+    //     ctrl.chat = data.chat;
+    //     $scope.$apply();
+    //   });
+    // }
+    this.createFeed = function (e) {
       socket.post(
-        '/chat',
-        { name: ctrl.newChatName },
-        function (data) {
-          if (data.error) {
-            console.error(data.error);
+        '/feed/create',
+        ctrl.feed,
+        function (res) {
+          if (res.error) {
+            console.error(res.error);
           }
-          console.log(data);
-          ctrl.newChatName = '';
+          ctrl.feed = {
+            text: '',
+            receivers: []
+          };
           $('#modal').modal('hide');
         }
       );
     }
-    this.sendMessage = function () {
-      var destination =
-          '/chat/' +
-          this.chat.name +
-          '/message';
-      socket.post(destination, {
-        text: ctrl.message
-      });
-      ctrl.message = '';
-    }
+    // this.sendMessage = function () {
+    //   var destination =
+    //       '/chat/' +
+    //       this.chat.name +
+    //       '/message';
+    //   socket.post(destination, {
+    //     text: ctrl.message
+    //   });
+    //   ctrl.message = '';
+    // }
     this.showModal = function (template) {
       if (!(template in ctrl.templates)) {
         return console.error('Invalid template!', template);
@@ -122,7 +127,6 @@ angular
         '/user/' +  ctrl.user.id,
         data,
         function (data, jwr) {
-          $('#modal').modal('hide');
           if (data.message && data.message.length) {
             ctrl.user = data.message[0];
             var userData = JSON.parse(localStorage.getItem('user'));

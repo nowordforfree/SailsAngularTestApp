@@ -44,13 +44,13 @@ body { padding-top: 70px; }
   <div class="row">
     <div class="col-sm-3">
       <button class="btn btn-raised btn-primary btn-block" ng-click="ctrl.showModal('createChat')">
-        Create new chat
+        Create new feed
       </button>
       <br/>
-      <div class="list-group">
-        <div class="text-center text-muted" ng-if="!ctrl.chats.length">
-          No chats found<br/>Use button above to create one
-        </div>
+      <div class="text-center text-muted" ng-if="!ctrl.feeds.length">
+        No feeds found<br/>Use button above to create one
+      </div>
+      <!-- <div class="list-group">
         <div class="list-group-item btn btn-raised"
             ng-repeat="chat in ctrl.chats track by chat.id"
             ng-click="ctrl.selectChat($event)">
@@ -58,23 +58,23 @@ body { padding-top: 70px; }
             <h4 class="list-group-item-text">{{ chat.name }}</h4>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="col-sm-9">
       <div class="chat">
         <div class="messages">
           <div class="panel panel-default"
-               ng-repeat="message in ctrl.chat.messages track by message.id">
+               ng-repeat="feed in ctrl.feeds track by feed.id">
             <div class="panel-heading">
-              {{ message.username }}
+              {{ feed.author }}
               <span class="pull-right">
-                {{ message.createdAt | date:"MM/dd/yyyy 'at' HH:mm" }}
+                {{ feed.createdAt | date:"MM/dd/yyyy 'at' HH:mm" }}
               </span>
             </div>
-            <div class="panel-body">{{ message.text }}</div>
+            <div class="panel-body">{{ feed.text }}</div>
           </div>
         </div>
-        <div class="message" ng-hide="!ctrl.chat">
+        <!-- <div class="message" ng-hide="!ctrl.chat">
           <form class="form" ng-submit="ctrl.sendMessage()" novalidate>
             <div class="form-group label-floating">
               <div class="input-group">
@@ -87,7 +87,7 @@ body { padding-top: 70px; }
               </div>
             </div>
           </form>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

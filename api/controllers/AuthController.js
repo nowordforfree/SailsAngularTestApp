@@ -17,26 +17,28 @@ module.exports = {
       return res.json(401, {error: 'Email and password required'});
     }
 
-    User.findOneByEmail(email, function(err, user) {
-      if (!user) {
-        return res.json(401, {error: 'User with such email not found'});
-      }
+    User.findOneByEmail(email)
+        .populate('subscribedTo')
+        .exec(function(err, user) {
+          if (!user) {
+            return res.json(401, {error: 'User with such email not found'});
+          }
 
-      User.comparePassword(password, user, function(err, valid) {
-        if (err) {
-          return res.json(403, {error: 'Forbidden'});
-        }
+          User.comparePassword(password, user, function(err, valid) {
+            if (err) {
+              return res.json(403, {error: 'Forbidden'});
+            }
 
-        if (!valid) {
-          return res.json(401, {error: 'Invalid password'});
-        } else {
-          res.json({
-            user: user,
-            token: AuthService.issueToken(user.id)
+            if (!valid) {
+              return res.json(401, {error: 'Invalid password'});
+            } else {
+              res.json({
+                user: user,
+                token: AuthService.issueToken(user.id)
+              });
+            }
           });
-        }
-      });
-    });
+        });
   },
   /**
    * `AuthController.register()`

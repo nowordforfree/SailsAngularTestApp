@@ -13,6 +13,7 @@ module.exports = {
     lastname : { type: 'string' },
     email : { type: 'email', required: true, unique: true },
     password : { type: 'string', required: true, minLength: 6 },
+    subscribedTo: { collection: 'receiver' },
     getFullName: function () {
       return (this.firstname && this.lastname) ?
               this.firstname + ' ' + this.lastname :

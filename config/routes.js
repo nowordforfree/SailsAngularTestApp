@@ -37,11 +37,7 @@ module.exports.routes = {
   },
   'get /main': {
     view: 'index'
-  },
-  'get /chat': 'ChatController.getChatsList',
-  'get /chat/:name': 'ChatController.getChat',
-  'post /chat': 'ChatController.createChat',
-  'post /chat/:name/message': 'ChatController.postMessage'
+  }
 
   /***************************************************************************
   *                                                                          *

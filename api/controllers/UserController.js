@@ -24,17 +24,30 @@ module.exports = {
     if (req.body.password !== req.body.confirmPassword) {
       return res.json(401, {error: 'Password doesn\'t match'});
     }
-    Users.create(req.body).exec(function (err, user) {
-      if (err) {
-        return res.json(err.status, {error: err});
-      }
-      if (user) {
-        res.json(200, {
-          user: user,
-          token: AuthService.issueToken(user.id)
-        });
-      }
-    });
+
+		Receiver
+			.findOrCreate(
+				{ type: 'all' },
+				{ type: 'all' }
+			).exec(function (err, receiver) {
+				if (err) {
+					res.negotiate(err);
+				}
+				req.body.subscribedTo = [receiver.id];
+				Users
+					.create(req.body)
+					.exec(function (err, user) {
+						if (err) {
+							return res.json(err.status, {error: err});
+						}
+						if (user) {
+							res.json(200, {
+								user: user,
+								token: AuthService.issueToken(user.id)
+							});
+						}
+					});
+			});
   },
 
 
