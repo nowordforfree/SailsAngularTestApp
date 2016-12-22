@@ -50,15 +50,6 @@ body { padding-top: 70px; }
       <div class="text-center text-muted" ng-if="!ctrl.feeds.length">
         No feeds found<br/>Use button above to create one
       </div>
-      <!-- <div class="list-group">
-        <div class="list-group-item btn btn-raised"
-            ng-repeat="chat in ctrl.chats track by chat.id"
-            ng-click="ctrl.selectChat($event)">
-          <div class="row-content">
-            <h4 class="list-group-item-text">{{ chat.name }}</h4>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="col-sm-9">
       <div class="chat">
@@ -74,20 +65,6 @@ body { padding-top: 70px; }
             <div class="panel-body">{{ feed.text }}</div>
           </div>
         </div>
-        <!-- <div class="message" ng-hide="!ctrl.chat">
-          <form class="form" ng-submit="ctrl.sendMessage()" novalidate>
-            <div class="form-group label-floating">
-              <div class="input-group">
-                <input type="text" class="form-control" ng-model="ctrl.message">
-                <span class="input-group-btn">
-                  <button type="submit" class="btn btn-fab btn-fab-mini">
-                    <i class="material-icons">send</i>
-                  </button>
-                </span>
-              </div>
-            </div>
-          </form>
-        </div> -->
       </div>
     </div>
   </div>

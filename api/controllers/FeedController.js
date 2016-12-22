@@ -19,13 +19,18 @@ module.exports = {
           var subscribedIds = user.subscribedTo.map(function (model) {
             return model.id;
           });
-          console.log(subscribedIds);
           Feed
-            .find({ id: subscribedIds })
+            .find()
+						.populate('receivers')
             .exec(function (err, feeds) {
               if (err) {
                 return res.negotiate(err);
               }
+							var userFeeds = feeds.filter(function (feed) {
+								return feed.receivers.some(function (obj) {
+									return subscribedIds.indexOf(obj.id) > -1;
+								});
+							});
               if (req.isSocket) {
                 user.subscribedTo.forEach(function (obj) {
                   if (obj.type !== 'all') {
@@ -34,7 +39,7 @@ module.exports = {
                 });
                 sails.sockets.join(req, 'all');
               }
-              res.json({ data: feeds });
+              res.json({ data: userFeeds });
             });
   			} else {
   				res.json({ error: 'User not found' });
@@ -50,13 +55,16 @@ module.exports = {
     if (!req.body.text) {
       return res.json(401, {error: 'Creating Feed without text not allowed'});
     }
-    if (!req.body.receivers) {
-      req.body.receivers = [{ type: 'all' }];
-    }
+		var receiversObj;
+    if (!req.body.receivers || !req.body.receivers.length) {
+      receiversObj = [{ type: 'all' }];
+    } else {
+			receiversObj = req.body.receivers;
+		}
     Receiver
       .findOrCreate(
-        req.body.receivers,
-        req.body.receivers
+        receiversObj,
+        receiversObj
       )
       .exec(function (err, receivers) {
   		  if (err) {

@@ -31,8 +31,37 @@ module.exports = {
         }
         values.password = hash;
         next();
-      })
-    })
+      });
+    });
+  },
+  beforeUpdate: function (values, next) {
+    if (values.id && values.password) {
+      User.findOneById(values.id).exec(function (err, user) {
+        User.comparePassword(values.password, user, function (err, match) {
+          if (err) {
+            return next(err);
+          }
+          if (match) {
+            return next();
+          } else {
+            bcrypt.genSalt(10, function (err, salt) {
+              if (err) {
+                return next(err);
+              }
+              bcrypt.hash(values.password, salt, function (err, hash) {
+                if (err) {
+                  return next(err);
+                }
+                values.password = hash;
+                next();
+              });
+            });
+          }
+        });
+      });
+    } else {
+      next();
+    }
   },
   comparePassword : function (password, user, cb) {
     bcrypt.compare(password, user.password, function (err, match) {

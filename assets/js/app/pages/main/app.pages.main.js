@@ -46,21 +46,6 @@ angular
       }
       $scope.$apply();
     });
-    // this.selectChat = function (e) {
-    //   var $el = $(e.target);
-    //   if ($el.hasClass('active')) {
-    //     return;
-    //   }
-    //   $el.parent()
-    //      .find('.active')
-    //      .removeClass('active');
-    //   $el.addClass('active');
-    //
-    //   socket.get('/chat/' + $el.text().trim(), function (data) {
-    //     ctrl.chat = data.chat;
-    //     $scope.$apply();
-    //   });
-    // }
     this.createFeed = function (e) {
       socket.post(
         '/feed/create',
@@ -76,17 +61,7 @@ angular
           $('#modal').modal('hide');
         }
       );
-    }
-    // this.sendMessage = function () {
-    //   var destination =
-    //       '/chat/' +
-    //       this.chat.name +
-    //       '/message';
-    //   socket.post(destination, {
-    //     text: ctrl.message
-    //   });
-    //   ctrl.message = '';
-    // }
+    };
     this.showModal = function (template) {
       if (!(template in ctrl.templates)) {
         return console.error('Invalid template!', template);

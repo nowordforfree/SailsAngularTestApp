@@ -23,16 +23,16 @@
         <div class="form-group">
           <label for="feed_receiver_type" class="control-label">Receiver Type</label>
           <select class="form-control" name="feed_receiver_type" ng-model="receiver.type">
-            <option value="all" selected>All</option>
+            <option value="all">All</option>
             <option value="group">Group</option>
             <option value="label">Label</option>
             <option value="direct">Direct message</option>
           </select>
         </div>
         <div class="form-group" ng-repeat-end ng-if="receiver.type != 'all'">
-          <label for="feed_receiver_name" class="control-label">Receiver Name</label>
-          <input type="text" class="form-control" name="feed_receiver_name"
-                 id="feed_receiver_name" ng-model="receiver.name" />
+          <label for="feed_receiver_key" class="control-label">Receiver Name</label>
+          <input type="text" class="form-control" name="feed_receiver_key"
+                 id="feed_receiver_key" ng-model="receiver.key" />
         </div>
         <button type="button" class="btn btn-raised btn-default" ng-click="ctrl.feed.receivers.push({})">Add Receiver(s)</button>
         <button type="submit" class="btn btn-raised btn-primary pull-right">Create!</button>

@@ -13,6 +13,6 @@ module.exports = {
       enum: [ 'all', 'group', 'label', 'direct' ],
       defaultsTo: 'all'
     },
-    name : { type: 'string' }
+    key : { type: 'string' }
   }
 };

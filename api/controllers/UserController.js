@@ -8,9 +8,12 @@
 module.exports = {
 
 	index: function (req, res) {
-		return res.json({
-			message: 'Here will be view soon... Maybe...'
-		})
+		User.find().exec(function (err, users) {
+			if (err) {
+				return res.negotiate(err);
+			}
+			res.json({ data: users });
+		});
 	},
 
   /**
@@ -55,9 +58,19 @@ module.exports = {
    * `UserController.get()`
    */
   get: function (req, res) {
-    return res.json({
-      todo: 'get() is not implemented yet!'
-    });
+		if (!req.params.id) {
+			return res.json({
+				error: 'User Id is not in request body'
+			});
+		}
+		User
+			.findOneById(req.params.id)
+			.exec(function (err, user) {
+				if (err) {
+					return res.negotiate(err);
+				}
+				res.json({ data: uer });
+			})
   },
 
 
