@@ -1,6 +1,6 @@
 angular
   .module('SailsNgApp.pages.main', [])
-  .controller('MainController', ['$scope', '$http', function ($scope, $http) {
+  .controller('MainController', ['$scope', '$q', '$http', function ($scope, $q, $http) {
     // Initialize material theme js
     $.material.init();
     var ctrl = this;
@@ -29,14 +29,14 @@ angular
     $scope.$on('$includeContentLoaded', function () {
       $('#modal').modal('show');
     });
+
     var socket = io.sails.connect();
-    socket.on('feed', function (msg) {
-      debugger;
-    });
+
     socket.on('message', function (msg) {
       ctrl.feeds.push(msg);
       $scope.$apply();
     });
+
     socket.get('/feed', function (res) {
       if (res.error) {
         ctrl.feeds = [];
@@ -46,6 +46,23 @@ angular
       }
       $scope.$apply();
     });
+
+    this.sources = [];
+    
+    socket.get('/receiver', function(res) {
+      if (res.error) {
+        console.error(res.error);
+      } else {
+        ctrl.sources = res.data;
+        ctrl.sources.map(function(obj) {
+          if (obj.type === 'all') {
+            ctrl.allKey = obj.id;
+            return;
+          }
+        })
+      }
+    });
+
     this.createFeed = function (e) {
       socket.post(
         '/feed/create',
@@ -62,6 +79,7 @@ angular
         }
       );
     };
+
     this.showModal = function (template) {
       if (!(template in ctrl.templates)) {
         return console.error('Invalid template!', template);
@@ -71,7 +89,8 @@ angular
       } else {
         $('#modal').modal('show');
       }
-    }
+    };
+
     this.changeImage = function (e) {
       var reader = new FileReader();
       reader.onloadend = function (e) {
@@ -79,8 +98,22 @@ angular
         $scope.$apply();
       };
       reader.readAsDataURL(e.target.files[0]);
+    };
 
-    }
+    this.addSubscription = function() {
+      ctrl.profile.subscribedTo.push({
+        type: 'all',
+        key: ctrl.allKey
+      });
+    };
+
+    this.addReceiver = function() {
+      ctrl.feed.receivers.push({
+        type: 'all',
+        key: ctrl.allKey
+      });
+    };
+
     this.updateProfile = function (e) {
       if (!$(e.target).is('form')) {
         return;
@@ -99,7 +132,7 @@ angular
                       .find('.avatar')
                       .attr('src');
       socket.put(
-        '/user/' +  ctrl.user.id,
+        '/user/update/' +  ctrl.user.id,
         data,
         function (data, jwr) {
           if (data.message && data.message.length) {
@@ -111,13 +144,15 @@ angular
           $('#modal').modal('hide');
         }
       );
-    }
+    };
+
     this.logout = function () {
       localStorage.removeItem('user');
       socket.removeAllListeners();
       delete io.sails.headers;
       location.pathname = '/';
-    }
+    };
+
     var defaultAvatar =
       'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLT'+
       'giIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi'+
@@ -197,7 +232,8 @@ angular
       firstname: userData.user.firstname,
       lastname: userData.user.lastname,
       avatar: userData.user.avatar,
-      email: userData.user.email
+      email: userData.user.email,
+      subscribedTo: userData.user.subscribedTo || []
     };
     this.userImage = defaultAvatar;
   }])

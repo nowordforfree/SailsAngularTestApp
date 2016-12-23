@@ -55,17 +55,17 @@ module.exports = {
     if (!req.body.text) {
       return res.json(401, {error: 'Creating Feed without text not allowed'});
     }
-		var receiversObj;
+
     if (!req.body.receivers || !req.body.receivers.length) {
-      receiversObj = [{ type: 'all' }];
-    } else {
-			receiversObj = req.body.receivers;
+      return res.json(401, {error: 'Creating Feed without text not allowed'});
 		}
+
+    var ids = req.body.receivers.map(function(obj) {
+      return obj.key;
+    });
+
     Receiver
-      .findOrCreate(
-        receiversObj,
-        receiversObj
-      )
+      .findById(ids)
       .exec(function (err, receivers) {
   		  if (err) {
           return res.negotiate(err);

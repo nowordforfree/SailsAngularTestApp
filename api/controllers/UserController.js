@@ -65,6 +65,7 @@ module.exports = {
 		}
 		User
 			.findOneById(req.params.id)
+			.populateAll()
 			.exec(function (err, user) {
 				if (err) {
 					return res.negotiate(err);

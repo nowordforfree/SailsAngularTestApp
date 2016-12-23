@@ -65,12 +65,31 @@ module.exports = {
       password: password
     }).exec(function (err, user) {
       if (err) {
-        return res.json(err.status, {error: err});
+        return res.negotiate(err);
       }
-
-      if (user) {
-        res.ok({ user: user, token: AuthService.issueToken(user.id) });
-      }
+      Receiver.findOrCreate(
+        { type: 'all' },
+        { type: 'all' }
+      ).exec(function (err, all) {
+        if (err) {
+          return res.negotiate(err);
+        }
+        Receiver.create({
+          type: 'user',
+          key: user.id
+        }).exec(function (err, user_receiver) {
+          if (err) {
+            return res.negotiate(err);
+          }
+          user.subscribedTo.add([ all.id, user_receiver.id ]);
+          user.save(function (err) {
+            if (err) {
+              return res.negotiate(err);
+            }
+            res.json({ user: user, token: AuthService.issueToken(user.id) });
+          });
+        });
+      });
     });
   }
 };

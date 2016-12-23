@@ -46,25 +46,36 @@
         <div class="form-group">
           <div class="togglebutton">
             <label class="col-sm-6">
-              <input type="checkbox" ng-model="ctrl.changePassword"> Change Password
+              <input type="checkbox" ng-model="ctrl.changeSubscriptions"> Change Subscriptions
             </label>
           </div>
         </div>
-        <div class="form-group" ng-show="ctrl.changePassword">
-          <label for="password" class="col-sm-3 control-label">Password</label>
-          <div class="col-sm-9">
-            <input type="password" class="form-control"
-                   id="password" name="password"
-                   ng-model="ctrl.profile.password" required>
+        <div ng-show="ctrl.changeSubscriptions">
+          <div class="form-group" ng-repeat-start="obj in ctrl.profile.subscribedTo track by $index">
+            <label for="{{obj.type + '_' + $index}}" class="col-sm-3 control-label">Type</label>
+            <div class="col-sm-9">
+              <select class="form-control"
+                     id="{{obj.type + '_' + $index}}"
+                     ng-model="obj.type" disabled>
+                <option value="all">All</option>
+                <option value="group">Group</option>
+                <option value="label">Label</option>
+                <option value="user">Direct message</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="form-group" ng-show="ctrl.changePassword">
-          <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
-          <div class="col-sm-9">
-            <input type="password" class="form-control"
-                   id="confirmPassword" name="confirmPassword"
-                   ng-model="ctrl.profile.confirmPassword" required>
+          <div class="form-group" ng-repeat-end ng-if="obj.type != 'all'">
+            <label for="{{obj.key + '_' + $index}}" class="col-sm-3 control-label">Value(s)</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control"
+                     id="{{obj.key + '_' + $index}}"
+                     ng-model="obj.key" disabled />
+            </div>
           </div>
+          <button type="button" class="btn btn-raised btn-default"
+                  ng-click="ctrl.addSubscription()">
+            Add Subscription
+          </button>
         </div>
         <div class="alert-danger error-block"></div>
         <div class="text-right">
